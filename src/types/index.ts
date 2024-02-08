@@ -58,7 +58,7 @@ export type NFTPlatform = {
   platformLogoUrl: string;
   urlPattern: RegExp;
   urlExtractor?: (url: string) => NFTExtraction | undefined;
-  asyncUrlExtractor?: (url: string) => NFTExtraction | undefined;
+  asyncUrlExtractor?: (url: string) => Promise<NFTExtraction | undefined>;
   platformService: PlatformServiceConstructor;
 };
 
