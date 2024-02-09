@@ -129,7 +129,7 @@ export class PodsService implements IPlatformService {
       const metadataURI = (await podcastContract.read.uri([tokenId])).replace(
         // Ensure `ar://` scheme is replaced with an Arweave gateway instead.
         /^ar:\/\//,
-        `${ARWEAVE_GATEWAY}/`,
+        `${ARWEAVE_GATEWAY}/`
       );
       const response = await fetch(metadataURI);
 
@@ -150,7 +150,8 @@ export class PodsService implements IPlatformService {
     tokenId: bigint,
     senderAddress: string,
     signature: string,
-    price: bigint
+    price: bigint,
+    publisherAddress: Address = "0x0000000000000000000000000000000000000000"
   ) {
     const minter =
       PODS_CHAIN_ID_MAPPING[this.client.chain.id].erc1155ZoraMinter;
@@ -163,7 +164,7 @@ export class PodsService implements IPlatformService {
           [{ type: "address" }],
           [senderAddress as `0x${string}`]
         ),
-        "0x0000000000000000000000000000000000000000",
+        publisherAddress,
       ];
     } else {
       throw new Error("Invalid function signature");

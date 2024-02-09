@@ -1,4 +1,5 @@
-import { NFTExtraction, UIData } from "../types";
+import type { Address } from "viem";
+import type { NFTExtraction, UIData } from "../types";
 
 /**
  * Interface for platform services
@@ -30,6 +31,7 @@ export interface IPlatformService {
     tokenId: bigint,
     senderAddress: string,
     signature: string,
-    price: bigint
+    price: bigint,
+    publisherAddress?: Address
   ): any[];
 }

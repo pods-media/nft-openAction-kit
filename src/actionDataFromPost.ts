@@ -1,4 +1,4 @@
-import { Address, decodeAbiParameters } from "viem";
+import { type Address, decodeAbiParameters } from "viem";
 import { CHAIN_CONFIG } from "./config/constants";
 import { BASE_URL } from "./config/endpoints";
 import { NFT_PLATFORM_CONFIG } from "./platform/nftPlatforms";
@@ -15,6 +15,7 @@ import { bigintDeserializer, bigintSerializer, idToChain } from "./utils";
  * @param profileId Profile ID of the user
  * @param senderAddress Address of the user
  * @param srcChainId Chain ID of the source chain
+ * @param publisherAddress Address that created the publication, likely to be used as a referral address
  * @returns action data
  */
 export async function actionDataFromPost(
@@ -22,7 +23,8 @@ export async function actionDataFromPost(
   profileId: string,
   senderAddress: string,
   srcChainId: string,
-  decentApiKey: string
+  decentApiKey: string,
+  publisherAddress?: Address
 ): Promise<ActionData> {
   const [contract, tokenId, token, dstChainId, _, signature, platform] =
     fetchParams(post)!;
@@ -67,7 +69,8 @@ export async function actionDataFromPost(
         tokenId,
         senderAddress,
         signature,
-        price
+        price,
+        publisherAddress
       ),
     },
   };
